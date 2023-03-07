@@ -1,0 +1,1369 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Recruitment task</title>
+    <meta name="robots" content="noindex">
+    <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.24/browser.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+    <style>
+   
+ * {
+        margin: 0;
+        padding: 0;
+        -webkit-box-sizing: border-box;
+                box-sizing: border-box;
+      }
+
+      html {
+        font-size: 10px;
+        font-family: 'Montserrat', sans-serif;
+        color:  #656565;
+        font-weight: 600;
+      }
+
+      button, select, input {
+        background-color: transparent;
+        border: none;
+      }
+
+      button {
+        cursor: pointer;
+      }
+
+      :root {
+        --primary-blue: rgba(71, 88, 214);
+        --secondary-blue: #2ebaef;
+        --third-blue: #46549f;
+        --primary-grey: rgba(#3c3c3c);
+        --secondary-transparent-white:rgba(255, 255, 255, 0.656);
+      }
+
+      .app {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex; 
+        -webkit-box-pack: center; 
+            -ms-flex-pack: center; 
+                justify-content: center; 
+        -webkit-box-align: center; 
+            -ms-flex-align: center; 
+                align-items: center;
+        min-height:100vh;
+        background-color: rgba(219, 239, 252, 1);
+        background-image: -o-linear-gradient(328deg, rgba(219, 239, 252, 1) 25%, rgba(190, 222, 255, 1) 100%);
+        background-image: linear-gradient(122deg, rgba(219, 239, 252, 1) 25%, rgba(190, 222, 255, 1) 100%);
+      }
+
+      .app__container {
+        position: relative;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+            -ms-flex-direction: column;
+                flex-direction: column;
+        margin: 2vw 0;
+        width: 30vmax;
+        min-width: 300px;
+        max-width: 600px;
+        background-color: white;
+        -webkit-box-shadow: rgba(70, 83, 158, 0.40) 0px 5px 15px;
+                box-shadow: rgba(70, 83, 158, 0.40) 0px 5px 15px;
+        overflow: hidden;
+      }
+
+      .header {
+        position: relative;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-align: center;
+            -ms-flex-align: center;
+                align-items: center;
+        padding: 1.5% 6%;
+        width: 100%;
+        background-image: -webkit-gradient(linear, left top, right top, from(#0f0c29), color-stop(#25224e), to(#24243e));
+        background-image: -o-linear-gradient(left, #0f0c29, #25224e, #24243e);
+        background-image: linear-gradient(to right, #0f0c29, #25224e, #24243e);
+      }
+
+      .header__title {
+        color: white;
+        font-size: 1.3rem;
+      }
+
+      .header__divider {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        height: 12%;
+        background-image: -o-linear-gradient( 340.4deg, rgba(156,252,248,1) 11.2%, rgba(110,123,251,1) 91.1% );
+        background-image: linear-gradient( 109.6deg, rgba(156,252,248,1) 11.2%, rgba(110,123,251,1) 91.1% );
+      }
+
+      .workerList {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+            -ms-flex-direction: column;
+                flex-direction: column;
+        -webkit-box-flex: 1;
+            -ms-flex-positive: 1;
+                flex-grow: 1;
+        padding: 3% 6%;
+        overflow-y: scroll;
+        min-height: 400px;
+      }
+
+      .workerList__backButton {
+        -ms-flex-item-align: start;
+            align-self: flex-start;
+        color: var(--primary-grey);
+      }
+
+      .listModal {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+            -ms-flex-direction: column;
+                flex-direction: column;
+        -webkit-box-align: center;
+            -ms-flex-align: center;
+                align-items: center;
+        -webkit-box-pack: center;
+            -ms-flex-pack: center;
+                justify-content: center;
+        -webkit-box-flex: 1;
+            -ms-flex-positive: 1;
+                flex-grow: 1;
+        width: 100%;
+        cursor: pointer;
+      }
+
+      .listModal__title {
+        margin-bottom: 5px;
+        font-size: 1.6rem;
+        color: #525252;
+        text-align: center;
+      }
+
+      .listModal__divider {
+        width: 86%;
+        height: 6px;
+        background-image: -webkit-gradient(linear, left top, right top, from(#fc5c7d), to(#6a82fb));
+        background-image: -o-linear-gradient(left, #fc5c7d, #6a82fb);
+        background-image: linear-gradient(to right, #fc5c7d, #6a82fb);
+      }
+      
+      .worker {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-align: center;
+            -ms-flex-align: center;
+                align-items: center;
+        padding: 0 2%;
+        border-bottom: .14rem solid  #dbdce3;
+      }
+
+      .circleIcon {
+        padding: .7rem;
+        margin: 1.2rem 0 1.2rem 0;
+        font-size: 2.8rem;
+        border-radius: 50%;
+        border: .14rem solid #dbdce3;
+      }
+
+      .worker__details {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+            -ms-flex-direction: column;
+                flex-direction: column;
+        margin-left: 1.2rem;
+      }
+
+      .worker__name {
+        margin-bottom: .2rem;
+        color: black;
+        font-size: 1.4rem;
+        color: var(--primary-grey);
+      }
+
+      .worker__department {
+        font-size: 1.1rem;
+      }
+
+      .worker__salary {
+        margin-left: auto;
+        font-size: 1.1rem;
+        color: var(--primary-grey);
+      }
+
+      .footer {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        padding: 4% 6% 10% ;
+        height: 15%;
+      }
+
+      .footer__select {
+        -ms-flex-item-align: start;
+            align-self: flex-start;
+        margin-bottom: 1rem;
+        font-size: 1.2rem;
+        font-weight: 700;
+        font-family: 'Montserrat';
+        color: var(--primary-grey);
+      }
+
+      .footer__results {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+            -ms-flex-direction: column;
+                flex-direction: column;
+      }
+
+      .footer__sum {
+        margin: 0 0 .5rem 1rem;
+        color: var(--primary-grey);
+        font-size: 1.2rem;
+        font-weight: 700;
+      }
+
+      .buttons {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+      }
+      
+      .buttons__button {
+        margin: 2vw 1vw;
+        width: 4.3vw;
+        height: 4.3vw;
+        min-width: 50px;
+        min-height: 50px;
+        border-radius: 50%;
+        border: none;
+        background-color: var(--primary-blue);
+        -webkit-box-shadow: rgb(120, 172, 255, 0.3) 0px 19px 38px, rgb(120, 172, 255, 0.5) 0px 6px 12px;
+                box-shadow: rgb(120, 172, 255, 0.3) 0px 19px 38px, rgb(120, 172, 255, 0.5) 0px 6px 12px;
+        -webkit-transition:  .7s ;
+        -o-transition:  .7s ;
+        transition:  .7s ;
+      }
+
+      .buttons__button:hover {
+        -webkit-box-shadow: rgba(120, 172, 255, 0.588) 0px 19px 38px, rgba(120, 172, 255, 0.725) 0px 6px 12px;
+                box-shadow: rgba(120, 172, 255, 0.588) 0px 19px 38px, rgba(120, 172, 255, 0.725) 0px 6px 12px;
+      }
+
+      .buttons__button--active {
+        scale: 25;
+      }
+
+      .buttons__icon {
+        color: white;
+        font-size: 3vw;
+        opacity: 1;
+        -webkit-transition: .4s;
+        -o-transition: .4s;
+        transition: .4s;
+      }
+
+      .buttons__icon--active {
+        opacity: 0;
+      }
+
+      .formWrapper {
+        position: absolute;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+            -ms-flex-direction: column;
+                flex-direction: column;
+        -webkit-box-align: center;
+            -ms-flex-align: center;
+                align-items: center;
+        padding: 8% 8%;
+        width: 100%;
+        height: 100%;
+        color: white;
+        background-color: var(--primary-blue);
+        z-index: 9;
+        -webkit-animation: showFormModal .4s .4s backwards;
+                animation: showFormModal .4s .4s backwards;
+      }
+
+      .formWrapper__backButton {
+        position: absolute;
+        top: 50%;
+        left: 0;
+        -webkit-transform: translateY(-45%);
+            -ms-transform: translateY(-45%);
+                transform: translateY(-45%);
+        color:var(--transparent-white);
+      }
+
+      .formWrapper__header {
+        position: relative;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-pack: center;
+            -ms-flex-pack: center;
+                justify-content: center;
+        -webkit-box-align: center;
+            -ms-flex-align: center;
+                align-items: center;
+        width: 100%;
+      }
+
+      .formWrapper__title {
+        font-weight: 400;
+        font-size: 1.45rem;
+      }
+
+      .formWrapper__iconContainer {
+        margin: 4% 0 10% ;
+        width: 100%;
+        text-align: center;
+        color: var(--transparent-white);
+      }
+
+      .formWrapper__icon {
+        border-color: var(--transparent-white);
+      }
+
+      .formWrapper__form {
+        width: 100%;
+      }
+
+      .formWrapper__input, 
+      .formWrapper__select {
+        padding: 6% 0 1.4%;
+        border-bottom: .15rem solid rgba(255, 255, 255, 0.254);
+        color: white;
+      }
+
+      .formWrapper__input::-webkit-input-placeholder {
+        opacity: 1;
+        color:var(--secondary-transparent-white);
+        font-family: 'Montserrat';
+        font-weight: 400;
+        font-size: 1.3rem;
+      }
+
+      .formWrapper__input::-moz-placeholder {
+        opacity: 1;
+        color:var(--secondary-transparent-white);
+        font-family: 'Montserrat';
+        font-weight: 400;
+        font-size: 1.3rem;
+      }
+
+      .formWrapper__input:-ms-input-placeholder {
+        opacity: 1;
+        color:var(--secondary-transparent-white);
+        font-family: 'Montserrat';
+        font-weight: 400;
+        font-size: 1.3rem;
+      }
+
+      .formWrapper__input::-ms-input-placeholder {
+        opacity: 1;
+        color:var(--secondary-transparent-white);
+        font-family: 'Montserrat';
+        font-weight: 400;
+        font-size: 1.3rem;
+      }
+
+      .formWrapper__input::placeholder {
+        opacity: 1;
+        color:var(--secondary-transparent-white);
+        font-family: 'Montserrat';
+        font-weight: 400;
+        font-size: 1.3rem;
+      }
+
+      input::-webkit-outer-spin-button,
+      input::-webkit-inner-spin-button {
+        display: none;
+      }
+
+      input[type=number] {
+        -moz-appearance: textfield;
+      }
+
+      option {
+        color: var(--third-blue);
+        background-color: rgb(255, 255, 255);
+      }
+
+      select:invalid { 
+        color:var(--secondary-transparent-white);
+        font-family: 'Montserrat';
+        font-weight: 400;
+      }
+
+      .formWrapper__button {
+        margin: 6% 0;
+        padding: 4% 0;
+        width: 100%;
+        border: none;
+        background-color: var(--secondary-blue);
+        color: white;
+        font-weight: 500;
+        font-family: 'Montserrat';
+        -webkit-box-shadow: rgba(0, 0, 0, 0.08) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+                box-shadow: rgba(0, 0, 0, 0.08) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+      }
+
+      .formWrapper__range-label {
+        margin-top: 4%;
+        font-weight: 400;
+        font-size: 1.3rem;
+        color: var(--secondary-transparent-white);
+      }
+
+      .formWrapper__range-label--active {
+        color: white;
+        font-weight: 500;
+      }
+
+      .formWrapper__range-input {
+        margin: 2% 0 2% 0;
+      }
+
+      .searchForm, .addForm {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+            -ms-flex-direction: column;
+                flex-direction: column;
+      }
+
+      .customSelect {
+        position: relative;
+      }
+
+      .customSelect__button-toggle {
+        padding: 6% 0 1.4%;
+        width: 100%;
+        border-bottom: .15rem solid rgba(255, 255, 255, 0.254);
+        text-align: start;
+        color:var(--secondary-transparent-white);
+        font-family: 'Montserrat';
+      }
+
+      .customSelect__button-toggle--active {
+        color: white;
+        font-weight: 500;
+        font-size: 1.2rem;
+        font-family: 'Montserrat';
+      }
+
+      .customSelect__checkbox-container {
+        position: absolute;
+        padding: 0;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        max-height: 0;
+        background-color: var(--primary-blue);
+        -webkit-box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
+                box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
+        overflow: hidden;
+        -webkit-transition: .4s ;
+        -o-transition: .4s ;
+        transition: .4s ;
+      }
+
+      .customSelect__checkbox-container--open {
+        max-height: 200px;
+        padding: 5% 6% 3% 0;
+      }
+
+      .customSelect__checkbox {
+        margin: 2% 0 2% 4%;
+        accent-color: var(--secondary-blue);
+      }
+
+      .customSelect__checkbox-label:hover {
+        background-color: var(--third-blue);
+      }
+
+      .customSelect__checkbox-label {
+        display: inline-block;
+        padding-left: 2%;
+        width: 90%;
+        font-weight: 400;
+        font-size: 1.1rem;
+        font-family: 'Montserrat';
+      }
+
+      
+      .customSelect__button-submit {
+        margin: 3% 0 0 3%;
+        padding: 5px;
+        color:var(--secondary-transparent-white);
+        font-size: 1.1rem;
+      }
+
+      @-webkit-keyframes showFormModal {
+        from {
+          -webkit-filter:blur(40px);
+                  filter:blur(40px);
+          visibility: hidden
+        }
+
+        to {
+          -webkit-filter:blur(0);
+                  filter:blur(0);
+          visibility: visible
+        }
+      }
+
+      @keyframes showFormModal {
+        from {
+          -webkit-filter:blur(40px);
+                  filter:blur(40px);
+          visibility: hidden
+        }
+
+        to {
+          -webkit-filter:blur(0);
+                  filter:blur(0);
+          visibility: visible
+        }
+      }
+
+      @media (min-width: 1700px) {
+
+        html {
+          font-size: 13px;
+        }
+
+      }
+
+      @media (max-width: 1200px) {
+
+        .footer {
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+            -ms-flex-direction: column;
+                flex-direction: column;
+        }
+
+      }
+      
+      @media (max-width: 330px) {
+
+        .app__container {
+          min-width: 0;
+          margin: 0;
+          width: 100%;
+        }
+      }
+
+    </style>
+    </head>
+    <body>
+      <div id="app" >
+      </div>
+      <script type="text/babel">
+const AppContext = React.createContext();
+
+class AppContextProvider extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      isSearch: false,
+      searchFormVisible: false,
+      addFormVisible: false,
+      workerList: [
+        {
+          firstName: "John",
+          lastName: "Smith",
+          department: "IT",
+          salary: { amount: 3000, currency: "USD" },
+        },
+        {
+          firstName: "Jane",
+          lastName: "Doe",
+          department: "IT",
+          salary: { amount: 3000.5, currency: "USD" },
+        },
+        {
+          firstName: "Bob",
+          lastName: "Colman",
+          department: "Sales",
+          salary: { amount: 9000, currency: "USD" },
+        },
+        {
+          firstName: "Barbara",
+          lastName: "O'Connor",
+          department: "Sales",
+          salary: { amount: 4000, currency: "USD" },
+        },
+        {
+          firstName: "Adam",
+          lastName: "Murphy",
+          department: "Administration",
+          salary: { amount: 2000, currency: "USD" },
+        },
+      ],
+      searchList: [],
+    };
+  }
+
+  onAddWorker(worker) {
+    this.setState((prev) => {
+      return {
+        workerList: [...prev.workerList, worker],
+      };
+    });
+  }
+
+  updateSearchList(list) {
+    this.setState({ searchList: list });
+  }
+
+  toggleStateValue(state) {
+    this.setState((prev) => {
+      return {
+        [state]: !prev[state],
+      };
+    });
+  }
+
+  onSalarySum(currency, department) {
+    let filterList = [];
+
+    if (department === "all") {
+      filterList = this.state.workerList.filter(
+        (worker) => worker.salary.currency === currency
+      );
+    } else if (department !== "all") {
+      filterList = this.state.workerList.filter(
+        (worker) =>
+          worker.department === department &&
+          worker.salary.currency === currency
+      );
+    }
+    const sum = filterList.reduce((acc, i) => acc + i.salary.amount, 0);
+
+    if (sum) return sum;
+  }
+
+  render() {
+    const { children } = this.props;
+
+    return (
+      <AppContext.Provider
+        value={{
+          isSearch: this.state.isSearch,
+          searchList: this.state.searchList,
+          searchFormVisible: this.state.searchFormVisible,
+          addFormVisible: this.state.addFormVisible,
+          workerList: this.state.workerList,
+          onToggleStateValue: this.toggleStateValue.bind(this),
+          onAddWorker: this.onAddWorker.bind(this),
+          onUpdateSearchList: this.updateSearchList.bind(this),
+          onSalarySum: this.onSalarySum.bind(this),
+        }}
+      >
+        {children}
+      </AppContext.Provider>
+    );
+  }
+}
+
+class App extends React.Component {
+  constructor() {
+    super();
+    this.state = {};
+  }
+
+  render() {
+    return (
+      <AppContextProvider>
+        <div className="app">
+          <div className="app__container">
+            <Header />
+            <WorkerList />
+            <Buttons />
+            <Footer />
+            <Forms />
+          </div>
+        </div>
+      </AppContextProvider>
+    );
+  }
+}
+
+class Header extends React.Component {
+  constructor() {
+    super();
+    this.state = {};
+  }
+
+  render() {
+    return (
+      <div className="header">
+        <h1 className="header__title">WORKERS APP</h1>
+        <span className="header__divider"></span>
+      </div>
+    );
+  }
+}
+
+class WorkerList extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      showModal: false,
+    };
+    this.renderWorkers = this.renderWorkers.bind(this);
+  }
+
+  renderWorkers(list) {
+    return list.map((worker, index) => (
+      <Worker details={worker} key={worker.firstName + index} />
+    ));
+  }
+
+  listModal(func) {
+    return (
+      <div className="listModal" onClick={func}>
+        <h2 className="listModal__title">
+          {`Sorry, no result. Click and go back!`}
+        </h2>
+        <span className="listModal__divider"></span>
+      </div>
+    );
+  }
+
+  render() {
+    const { showModal } = this.state;
+
+    return (
+      <AppContext.Consumer>
+        {({ workerList, searchList, isSearch, onToggleStateValue }) => (
+          <ul className="workerList">
+            {isSearch ? (
+              <button
+                onClick={() => onToggleStateValue("isSearch")}
+                className="workerList__backButton"
+              >
+                <span className="material-symbols-outlined">
+                  keyboard_backspace
+                </span>
+              </button>
+            ) : (
+              <h4>WORKERS</h4>
+            )}
+            {isSearch &&
+              !searchList.length &&
+              this.listModal(() => onToggleStateValue("isSearch"))}
+            {isSearch
+              ? this.renderWorkers(searchList)
+              : this.renderWorkers(workerList)}
+          </ul>
+        )}
+      </AppContext.Consumer>
+    );
+  }
+}
+
+class Worker extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      departmentVisual: {
+        icons: {
+          IT: "terminal",
+          Sales: "request_quote",
+          Administration: "manage_accounts",
+        },
+        colors: {
+          IT: "rgb(9, 133, 242)",
+          Sales: "rgb(195, 9, 242)",
+          Administration: "rgb(242, 94, 9)",
+        },
+      },
+    };
+  }
+
+  render() {
+    const { firstName, lastName, department, salary } = this.props.details;
+    const { departmentVisual } = this.state;
+
+    return (
+      <li className="worker">
+        <span
+          className="circleIcon material-symbols-outlined"
+          style={{ color: `${departmentVisual.colors[department]}` }}
+        >
+          {departmentVisual.icons[department]}
+        </span>
+        <div className="worker__details">
+          <span className="worker__name">{`${firstName} ${lastName}`}</span>
+          <span className="worker__department">
+            {`Department: ${department}`}
+          </span>
+        </div>
+        <span className="worker__salary">
+          {`${salary.amount} ${salary.currency}`}
+        </span>
+      </li>
+    );
+  }
+}
+
+class Footer extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      selectDepartmentValue: "all",
+    };
+    this.selectDepartment = this.selectDepartment.bind(this);
+  }
+
+  selectDepartment(e) {
+    const selectValue = e.target.value;
+
+    this.setState({ selectDepartmentValue: selectValue });
+  }
+
+  render() {
+    return (
+      <AppContext.Consumer>
+        {({ onSalarySum }) => (
+          <footer className="footer">
+            <select
+              onChange={this.selectDepartment}
+              name="department"
+              className="footer__select"
+              defaultValue="all"
+            >
+              <option value="all">All departments</option>
+              <option value="Administration">Administration</option>
+              <option value="Sales">Sales</option>
+              <option value="IT">IT</option>
+            </select>
+            <div className="footer__results">
+              {onSalarySum("USD", `${this.state.selectDepartmentValue}`) && (
+                <span className="footer__sum">
+                  {onSalarySum("USD", `${this.state.selectDepartmentValue}`) +
+                    " USD"}
+                </span>
+              )}
+              {onSalarySum("GBP", `${this.state.selectDepartmentValue}`) && (
+                <span className="footer__sum">
+                  {onSalarySum("GBP", `${this.state.selectDepartmentValue}`) +
+                    " GBP"}
+                </span>
+              )}
+              {onSalarySum("EUR", `${this.state.selectDepartmentValue}`) && (
+                <span className="footer__sum">
+                  {onSalarySum("EUR", `${this.state.selectDepartmentValue}`) +
+                    " EUR"}
+                </span>
+              )}
+            </div>
+          </footer>
+        )}
+      </AppContext.Consumer>
+    );
+  }
+}
+
+class Buttons extends React.Component {
+  constructor() {
+    super();
+    this.state = {};
+  }
+
+  render() {
+    return (
+      <AppContext.Consumer>
+        {({
+          searchFormVisible,
+          addFormVisible,
+          onToggleStateValue,
+          isSearch,
+        }) => (
+          <div className="buttons">
+            {!isSearch && (
+              <button
+                className={`buttons__button ${
+                  searchFormVisible ? "buttons__button--active" : ""
+                }`}
+                onClick={() => onToggleStateValue("searchFormVisible")}
+              >
+                <span
+                  className={`buttons__icon material-symbols-outlined ${
+                    searchFormVisible ? "buttons__icon--active" : ""
+                  }`}
+                >
+                  search
+                </span>
+              </button>
+            )}
+            {!isSearch && (
+              <button
+                className={`buttons__button ${
+                  addFormVisible ? "buttons__button--active" : ""
+                }`}
+                onClick={() => onToggleStateValue("addFormVisible")}
+              >
+                <span
+                  className={`buttons__icon material-symbols-outlined ${
+                    addFormVisible ? "buttons__icon--active" : ""
+                  }`}
+                >
+                  person_add
+                </span>
+              </button>
+            )}
+          </div>
+        )}
+      </AppContext.Consumer>
+    );
+  }
+}
+
+class Forms extends React.Component {
+  constructor() {
+    super();
+    this.state = {};
+  }
+
+  render() {
+    return (
+      <AppContext.Consumer>
+        {({
+          searchFormVisible,
+          addFormVisible,
+          workerList,
+          onAddWorker,
+          onToggleStateValue,
+          onUpdateSearchList,
+        }) => (
+          <React.Fragment>
+            {searchFormVisible && (
+              <SearchForm
+                onToggleStateValue={onToggleStateValue}
+                workerList={workerList}
+                onUpdateSearchList={onUpdateSearchList}
+              />
+            )}
+            {addFormVisible && (
+              <AddForm
+                onToggleStateValue={onToggleStateValue}
+                onAddWorker={onAddWorker}
+                workerList={workerList}
+              />
+            )}
+          </React.Fragment>
+        )}
+      </AppContext.Consumer>
+    );
+  }
+}
+
+class SearchForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      formData: {
+        rangeLabel: 0,
+      },
+    };
+    this.datalistRef = React.createRef(null);
+    this.submitHandler = this.submitHandler.bind(this);
+    this.generateRangeLabel = this.generateRangeLabel.bind(this);
+    this.searchWorker = this.searchWorker.bind(this);
+  }
+
+  submitHandler(e) {
+    e.preventDefault();
+
+    const form = e.target;
+    const searchformData = new FormData(form);
+    this.searchWorker(searchformData);
+
+    this.props.onToggleStateValue("isSearch");
+    this.props.onToggleStateValue("searchFormVisible");
+  }
+
+  searchWorker(formData) {
+    const person = formData.get("person");
+    const department = formData.getAll("department");
+    const salary = +formData.get("salary");
+
+    let filterList = this.props.workerList;
+
+    if (person) {
+      filterList = filterList.filter(
+        (worker) => `${worker.firstName} ${worker.lastName}` === person
+      );
+    }
+    if (department.length) {
+      filterList = filterList.filter((worker) =>
+        department.includes(worker.department)
+      );
+    }
+    if (salary) {
+      filterList = filterList.filter(
+        (worker) => +worker.salary.amount < salary
+      );
+    }
+    if (person || department.length || salary)
+      this.props.onUpdateSearchList(filterList);
+  }
+
+  createDynamicOption() {
+    this.props.workerList.forEach((worker) => {
+      const option = new Option("", `${worker.firstName} ${worker.lastName}`);
+      this.datalistRef.current.appendChild(option);
+    });
+  }
+
+  generateRangeLabel(e) {
+    const salary = e.target.value;
+
+    this.setState({ rangeLabel: salary });
+  }
+
+  highestSalary() {
+    let highestSalary = 0;
+    this.props.workerList.forEach((worker) => {
+      worker.salary.amount > highestSalary &&
+        (highestSalary = worker.salary.amount);
+    });
+    return highestSalary;
+  }
+
+  componentDidMount() {
+    this.createDynamicOption();
+    this.highestSalary();
+  }
+
+  render() {
+    const { rangeLabel } = this.state;
+
+    return (
+      <FormWrapper
+        title="Search for worker"
+        iconName="manage_search"
+        formName="searchFormVisible"
+      >
+        <form className="searchForm" onSubmit={this.submitHandler}>
+          <input
+            name="person"
+            list="personDatalist"
+            type="text"
+            className="formWrapper__input"
+            placeholder="Person"
+          ></input>
+          <datalist id="personDatalist" ref={this.datalistRef}></datalist>
+          <CustomSelect />
+          <label
+            className={`formWrapper__range-label ${
+              rangeLabel ? "formWrapper__range-label--active" : ""
+            }`}
+            htmlFor="Salary"
+          >
+            {rangeLabel ? `to ${rangeLabel}` : "Salary"}
+          </label>
+          <input
+            className="formWrapper__range-input"
+            type="range"
+            id="Salary"
+            name="salary"
+            min="0"
+            max={this.highestSalary()}
+            value={rangeLabel ? rangeLabel : 0}
+            onChange={this.generateRangeLabel}
+          ></input>
+
+          <button type="submit" className="formWrapper__button">
+            SEARCH
+          </button>
+        </form>
+      </FormWrapper>
+    );
+  }
+}
+
+class CustomSelect extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      openCustomSelect: false,
+      buttonName: "",
+    };
+
+    this.toggleSelect = this.toggleSelect.bind(this);
+    this.dynamicButtonName = this.dynamicButtonName.bind(this);
+  }
+
+  toggleSelect(e) {
+    e.preventDefault();
+
+    this.setState((prev) => {
+      return {
+        openCustomSelect: !prev.openCustomSelect,
+      };
+    });
+  }
+
+  dynamicButtonName(e) {
+    const isCheck = e.target.checked;
+    const newValue = e.target.value;
+
+    let buttonNewName = isCheck
+      ? `${this.state.buttonName} ${newValue}`
+      : `${this.state.buttonName.replace(newValue, "").trimEnd()}`;
+
+    this.setState({ buttonName: buttonNewName });
+  }
+
+  render() {
+    const { openCustomSelect, buttonName } = this.state;
+
+    return (
+      <div className="customSelect">
+        <button
+          onClick={this.toggleSelect}
+          className={`customSelect__button-toggle ${
+            buttonName ? "customSelect__button-toggle--active" : ""
+          }`}
+        >
+          {buttonName ? buttonName : "Department"}
+        </button>
+        <div
+          className={`customSelect__checkbox-container ${
+            openCustomSelect ? "customSelect__checkbox-container--open" : ""
+          }`}
+        >
+          <input
+            className="customSelect__checkbox"
+            type="checkbox"
+            id="Administration"
+            name="department"
+            value="Administration"
+            onChange={this.dynamicButtonName}
+          ></input>
+          <label
+            htmlFor="Administration"
+            className="customSelect__checkbox-label"
+          >
+            Administration
+          </label>
+          <input
+            className="customSelect__checkbox"
+            type="checkbox"
+            id="Sales"
+            name="department"
+            value="Sales"
+            onChange={this.dynamicButtonName}
+          ></input>
+          <label htmlFor="Sales" className="customSelect__checkbox-label">
+            Sales
+          </label>
+          <input
+            className="customSelect__checkbox"
+            type="checkbox"
+            id="IT"
+            name="department"
+            value="IT"
+            onChange={this.dynamicButtonName}
+          ></input>
+          <label htmlFor="IT" className="customSelect__checkbox-label">
+            IT
+          </label>
+          <button
+            onClick={this.toggleSelect}
+            className="customSelect__button-submit"
+          >
+            OK
+          </button>
+        </div>
+      </div>
+    );
+  }
+}
+
+class AddForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+    this.submitHandler = this.submitHandler.bind(this);
+  }
+
+  submitHandler(e) {
+    e.preventDefault();
+
+    const form = e.target;
+    const addformData = new FormData(form);
+    const newWorker = this.createNewWorker(addformData);
+
+    this.props.onAddWorker(newWorker);
+    this.props.onToggleStateValue("addFormVisible");
+  }
+
+  createNewWorker(formData) {
+    const firstName = formData.get("firstName");
+    const lastName = formData.get("lastName");
+    const department = formData.get("department");
+    const amount = formData.get("amount");
+    const currency = formData.get("currency");
+
+    const newWorker = {
+      firstName: firstName,
+      lastName: lastName,
+      department: department,
+      salary: {
+        amount: +amount,
+        currency: currency,
+      },
+    };
+    return newWorker;
+  }
+
+  render() {
+    return (
+      <FormWrapper
+        title="Add new worker"
+        iconName="group_add"
+        formName="addFormVisible"
+      >
+        <form className="addForm" onSubmit={this.submitHandler}>
+          <input
+            name="firstName"
+            type="text"
+            pattern="[a-zA-Z]+"
+            className="formWrapper__input"
+            placeholder="FirstName"
+            required
+          ></input>
+          <input
+            name="lastName"
+            type="text"
+            pattern="[a-zA-Z]+"
+            className="formWrapper__input"
+            placeholder="LastName"
+            required
+          ></input>
+          <select
+            name="department"
+            className="formWrapper__select"
+            required
+            defaultValue=""
+          >
+            <option value="" disabled hidden>
+              Department
+            </option>
+            <option value="Administration">Administration</option>
+            <option value="Sales">Sales</option>
+            <option value="IT">IT</option>
+          </select>
+          <input
+            name="amount"
+            type="number"
+            pattern="[0-9]"
+            min="1"
+            max="1000000"
+            className="formWrapper__input"
+            placeholder="Salary"
+            required
+          ></input>
+          <select
+            name="currency"
+            className="formWrapper__select"
+            required
+            defaultValue=""
+          >
+            <option value="" disabled hidden>
+              Currency
+            </option>
+            <option value="USD">USD</option>
+            <option value="EUR">EUR</option>
+            <option value="GBP">GBP</option>
+          </select>
+          <button type="submit" className="formWrapper__button">
+            ADD NEW WORKER
+          </button>
+        </form>
+      </FormWrapper>
+    );
+  }
+}
+
+class FormWrapper extends React.Component {
+  constructor() {
+    super();
+    this.state = {};
+  }
+
+  render() {
+    const { title, iconName, formName, children } = this.props;
+
+    return (
+      <AppContext.Consumer>
+        {({ onToggleStateValue }) => (
+          <div className="formWrapper">
+            <div className="formWrapper__header">
+              <button
+                onClick={() => onToggleStateValue(formName)}
+                className="formWrapper__backButton"
+              >
+                <span className="material-symbols-outlined">
+                  keyboard_backspace
+                </span>
+              </button>
+              <h1 className="formWrapper__title">{title}</h1>
+            </div>
+            <div className="formWrapper__iconContainer">
+              <span className="formWrapper__icon circleIcon material-symbols-outlined">
+                {iconName}
+              </span>
+            </div>
+            <div className="formWrapper__form">{children}</div>
+          </div>
+        )}
+      </AppContext.Consumer>
+    );
+  }
+}
+
+ReactDOM.render(<App />, document.getElementById("app"));
+
+    </script>
+  </body>
+</html>
